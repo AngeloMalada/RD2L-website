@@ -65,7 +65,7 @@ const AdminDashboard = () => {
                       return (
                         <div key={team.id}>
                           <h2>{team.name}</h2>
-                          <h3>{team.captain}</h3>
+                          <h3>{team.captainId}</h3>
                           <div>
                             {team?.players?.map((player) => {
                               return (
