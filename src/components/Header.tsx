@@ -5,7 +5,7 @@ import React from "react";
 const Header = () => {
   return (
     <div className="flex h-[10vh] flex-row justify-between p-4 text-2xl font-bold uppercase tracking-widest">
-      <img src="/logo.png" alt="" className="w-32" />
+      <img src="/logo.png" alt="" className="h-12" />
       <div className="flex flex-row gap-8">
         <Link href="/">
           <span className="hover:text-[#FFD700]">Home</span>
