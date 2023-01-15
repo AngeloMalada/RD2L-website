@@ -19,7 +19,7 @@ const Players = () => {
     enabled: session?.user !== undefined,
   });
 
-  const handleSelectTeam = async (playerId: any) => {
+  const handleSelectTeam = async (playerId: string) => {
     const teamId = Number(selectTeam);
     const userId = playerId;
 
