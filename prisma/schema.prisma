@@ -54,8 +54,9 @@ model User {
   role          Role @default(USER)
   dotabuff      String?
   signUps       signUp[]
-  team          team? @relation(fields: [teamId], references: [id])
+  team          team? @relation(name:"team",fields: [teamId], references: [id])
   teamId        Int?
+  captainedTeams team[] @relation(name:"captain")
   
 
 }
@@ -86,12 +87,13 @@ model signUp {
 model team {
   id        Int   @id @default(autoincrement()) 
   name      String
-  captain   String
+  captain   User  @relation(name: "captain", fields: [captainId], references: [id])
+  captainId String @unique
   division  division @relation(fields: [divisionId], references: [id])
   divisionId Int 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  players   User[]
+  players   User[] @relation(name: "team")
   }
 
 model division {

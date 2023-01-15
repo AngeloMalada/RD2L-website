@@ -12,8 +12,9 @@ const Home: NextPage = () => {
   const utils = trpc.useContext();
   //get session data and keep it after refresh
   const { data: session } = useSession();
-  const { data: teams } = trpc.team.getAllTeams.useQuery();
-  const { data: divisions } = trpc.divisions.getDivisions.useQuery();
+  const { data: divisions } = trpc.divisions.getDivisions.useQuery(undefined, {
+    enabled: session?.user !== undefined,
+  });
 
   //use mutation to sign up
   const signUp = trpc.signUp.signup.useMutation();
@@ -36,7 +37,7 @@ const Home: NextPage = () => {
 
   const handleCreateTeam = async () => {
     const name = "Team 4";
-    const captain = "panda for president!";
+    const captain = "clcxinngj0000s37eh8c6ta9n";
 
     createTeam.mutate({ name, captain });
   };
@@ -62,7 +63,6 @@ const Home: NextPage = () => {
                 return (
                   <div key={team.id}>
                     <h2>{team.name}</h2>
-                    <h3>{team.captain}</h3>
                   </div>
                 );
               })}

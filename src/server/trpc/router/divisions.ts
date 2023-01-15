@@ -9,7 +9,7 @@ export const divisionsRouter = router({
           select: {
             id: true,
             name: true,
-            captain: true,
+            captainId: true,
             players: true,
           },
         },
