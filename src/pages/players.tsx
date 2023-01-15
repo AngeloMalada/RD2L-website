@@ -37,7 +37,11 @@ const Players = () => {
               key={player.id}
               className="flex flex-row items-center gap-4 text-center"
             >
-              <img src={player.image} alt="" className="w-12 rounded-lg" />
+              <img
+                src={player.image as string}
+                alt=""
+                className="w-12 rounded-lg"
+              />
               <h1>{player.name}</h1>
               <h1>{player.teamId}</h1>
               <h1>{player.email}</h1>
