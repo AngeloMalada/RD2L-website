@@ -47,9 +47,19 @@ const Home: NextPage = () => {
       <h1>{session?.user?.email}</h1>
       <h1>holla {session?.user?.role}</h1>
       {session ? (
-        <button onClick={() => signOut()}>Sign out</button>
+        <button
+          className="rounded-lg bg-[#353535] p-4 text-white "
+          onClick={() => signOut()}
+        >
+          Sign out
+        </button>
       ) : (
-        <button onClick={() => signIn()}>Sign in</button>
+        <button
+          className="rounded-lg bg-[#353535] p-4 text-white"
+          onClick={() => signIn()}
+        >
+          Sign in
+        </button>
       )}
       <button onClick={handleSignUp}>Sign up</button>
       <button onClick={handleUserUpdate}>Update user</button>
