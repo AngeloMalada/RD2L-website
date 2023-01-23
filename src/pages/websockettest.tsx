@@ -52,7 +52,7 @@ const WebSocketTest = () => {
   };
   return (
     <div>
-      {index && <h1>{index + 1}</h1>}
+      {index && index != 0 && <h1>{index + 1}</h1>}
       <button
         className='bg-red-800 p-4 '
         onClick={() => {
