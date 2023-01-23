@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { router, protectedProcedure } from "../trpc";
+import { router, protectedProcedure } from '../trpc';
 
 //create a mutation
 export const userUpdate = router({
@@ -8,7 +8,7 @@ export const userUpdate = router({
     .input(
       z.object({
         dotabuff: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const user = await ctx.prisma.user.update({
@@ -27,11 +27,11 @@ export const userUpdate = router({
     .input(
       z.object({
         teamId: z.number(),
-        userId: z.string(),
-      })
+        userId: z.number(),
+      }),
     )
     .mutation(async ({ input, ctx }) => {
-      const user = await ctx.prisma.user.update({
+      const user = await ctx.prisma.signup.update({
         where: {
           id: input.userId,
         },

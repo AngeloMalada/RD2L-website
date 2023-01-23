@@ -51,12 +51,14 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  mmr           Int @default(0)
   role          Role @default(USER)
   dotabuff      String?
-  signUps       signUp[]
-  team          team? @relation(name:"team",fields: [teamId], references: [id])
-  teamId        Int?
-  captainedTeams team[] @relation(name:"captain")
+  Signup        Signup?
+  banned       Boolean @default(false)
+  drafting    Boolean @default(false)
+
+
   
 
 }
@@ -76,31 +78,49 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model signUp {
+model Signup {
   id        Int   @id @default(autoincrement()) 
   user      User  @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String @unique
+  activityCheck Boolean @default(false)
+  soldFor      Int? 
+  currentBid  Int? @default(0)
+  team          Team? @relation(name:"team",fields: [teamId], references: [id])
+  teamId        Int?
+  test         Boolean @default(false)
+  captainedTeam Team? @relation(name:"captain")
+  draftingFor  Team? @relation(name:"drafter")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model team {
+model Team {
   id        Int   @id @default(autoincrement()) 
-  name      String
-  captain   User  @relation(name: "captain", fields: [captainId], references: [id])
-  captainId String @unique
-  division  division @relation(fields: [divisionId], references: [id])
+  name      String 
+  coins     Int @default(0)
+  captain   Signup?  @relation(name: "captain", fields: [captainId], references: [id])
+  captainId Int? @unique
+  division  Division @relation(fields: [divisionId], references: [id])
   divisionId Int 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  players   User[] @relation(name: "team")
+  players   Signup[] @relation(name: "team")
+  drafter   Signup? @relation(name: "drafter", fields: [drafterId], references: [id])
+  drafterId  Int? @unique
   }
 
-model division {
+model Division {
   id        Int   @id @default(autoincrement()) 
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  teams     team[]  
+  teams     Team[]  
   
 }
+
+model Draft {
+  id       Int   @id @default(autoincrement()) 
+  index   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  }

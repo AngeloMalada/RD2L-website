@@ -1,25 +1,27 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { router, protectedProcedure } from "../trpc";
+import { router, protectedProcedure } from '../trpc';
 
 //create a mutation
 export const teamRouter = router({
   createTeam: protectedProcedure
     .input(
       z.object({
-        name: z.string(),
-        captain: z.string(),
-      })
+        name: z.string().min(1).max(50),
+        captain: z.number(),
+        division: z.number(),
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const team = await ctx.prisma.team.create({
         data: {
-          divisionId: 1,
+          divisionId: input.division,
           name: input.name,
           captainId: input.captain,
         },
       });
-      const selectCaptain = await ctx.prisma.user.update({
+
+      const addCaptain = await ctx.prisma.signup.update({
         where: {
           id: input.captain,
         },
@@ -30,11 +32,39 @@ export const teamRouter = router({
 
       return {
         team,
-        selectCaptain,
+        addCaptain,
       };
     }),
   getAllTeams: protectedProcedure.query(async ({ ctx }) => {
-    const teams = await ctx.prisma.team.findMany();
+    const teams = await ctx.prisma.team.findMany({
+      include: {
+        captain: true,
+        division: true,
+        players: {
+          select: {
+            soldFor: true,
+            user: true,
+          },
+        },
+      },
+    });
     return teams;
   }),
+  removeCaptain: protectedProcedure
+    .input(
+      z.object({
+        captainId: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const removeCaptain = await ctx.prisma.team.update({
+        where: {
+          captainId: input.captainId,
+        },
+        data: {
+          captainId: null,
+        },
+      });
+      return removeCaptain;
+    }),
 });

@@ -1,4 +1,4 @@
-import { router, protectedProcedure } from "../trpc";
+import { router, protectedProcedure } from '../trpc';
 
 //create a mutation
 export const divisionsRouter = router({
@@ -10,7 +10,11 @@ export const divisionsRouter = router({
             id: true,
             name: true,
             captainId: true,
-            players: true,
+            players: {
+              select: {
+                user: true,
+              },
+            },
           },
         },
       },
