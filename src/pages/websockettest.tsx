@@ -22,7 +22,7 @@ const WebSocketTest = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [usersRemoved, setUsersRemoved] = useState([]);
 
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(null);
 
   useEffect(() => {
     const channel = pusher.subscribe('presence-cache-channel');
@@ -47,7 +47,7 @@ const WebSocketTest = () => {
   }, []);
   const handleNextIndex = async () => {
     await axios.post('/api/pusher/indexupdate', {
-      index: index ? (index < 7 ? index + 1 : 0) : null,
+      index: index === null ? 0 : index < 7 ? index + 1 : 0,
     });
   };
   return (
