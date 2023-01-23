@@ -22,7 +22,7 @@ const WebSocketTest = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [usersRemoved, setUsersRemoved] = useState([]);
 
-  const [index, setIndex] = useState();
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const channel = pusher.subscribe('presence-cache-channel');
