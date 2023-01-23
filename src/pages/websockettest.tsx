@@ -12,7 +12,7 @@ const WebSocketTest = () => {
   const pusher = new Pusher(env.NEXT_PUBLIC_KEY, {
     cluster: 'eu',
     // use jwts in prod
-    authEndpoint: `api/pusher/auth`,
+    authEndpoint: `/api/pusher/auth`,
     auth: { params: { username } },
   });
 
