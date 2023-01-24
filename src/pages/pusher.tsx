@@ -11,7 +11,6 @@ const WebSocketTest = () => {
   const { data: session } = useSession();
   const pusher = new Pusher(env.NEXT_PUBLIC_KEY, {
     cluster: 'eu',
-    // use jwts in prod
     authEndpoint: `/api/pusher/auth`,
     auth: { params: { username } },
   });
@@ -49,10 +48,12 @@ const WebSocketTest = () => {
     await axios.post('/api/pusher/indexupdate', {
       index: index === null ? 0 : index < 7 ? index + 1 : 0,
     });
+    console.log(index);
   };
   return (
     <div>
-      {index && index != 0 && <h1>{index + 1}</h1>}
+      {index != null && <h1>{index === 0 ? 1 : index + 1}</h1>}
+
       <button
         className='bg-red-800 p-4 '
         onClick={() => {

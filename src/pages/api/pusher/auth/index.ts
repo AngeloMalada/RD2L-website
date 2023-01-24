@@ -16,7 +16,7 @@ export default async function handler(req: any, res: any) {
   };
 
   try {
-    const auth = pusher.authenticate(socket_id, channel_name, presenceData);
+    const auth = pusher.authorizeChannel(socket_id, channel_name, presenceData);
     res.send(auth);
   } catch (error) {
     console.error(error);
