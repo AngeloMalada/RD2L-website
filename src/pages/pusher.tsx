@@ -9,11 +9,6 @@ import axios from 'axios';
 const WebSocketTest = () => {
   const username = 'test';
   const { data: session } = useSession();
-  const pusher = new Pusher(env.NEXT_PUBLIC_KEY, {
-    cluster: 'eu',
-    authEndpoint: `/api/pusher/auth`,
-    auth: { params: { username } },
-  });
 
   const [chats, setChats] = useState([]);
   const [messageToSend, setMessageToSend] = useState('');
@@ -24,6 +19,12 @@ const WebSocketTest = () => {
   const [index, setIndex] = useState(null);
 
   useEffect(() => {
+    const pusher = new Pusher(env.NEXT_PUBLIC_KEY, {
+      cluster: 'eu',
+      authEndpoint: `/api/pusher/auth`,
+      auth: { params: { username } },
+    });
+
     const channel = pusher.subscribe('presence-cache-channel');
 
     // when a new member successfully subscribes to the channel
