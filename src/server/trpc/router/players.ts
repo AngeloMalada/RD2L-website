@@ -61,6 +61,26 @@ export const playerRouter = router({
           teamId: null,
         },
       });
-      return player;
+
+      return {
+        player,
+      };
     }),
+  // removeCaptainFromTeam: protectedProcedure
+  //   .input(
+  //     z.object({
+  //       id: z.number(),
+  //     }),
+  //   )
+  //   .mutation(async ({ ctx, input }) => {
+  //     const removeCaptain = await ctx.prisma.team.update({
+  //       where: {
+  //         captainId: input.id,
+  //       },
+  //       data: {
+  //         captainId: 1,
+  //       },
+  //     });
+  //     return removeCaptain;
+  //   }),
 });

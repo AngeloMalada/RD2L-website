@@ -15,13 +15,13 @@ const Signups = () => {
   const { data: session } = useSession();
   const [selectTeam, setSelectTeam] = React.useState('');
   const [soldFor, setSoldFor] = React.useState<number>();
-  const removeCaptain = trpc.team.removeCaptain.useMutation({
-    onSuccess: () => {
-      utils.players.getAllPlayers.invalidate();
+  // const removeCaptain = trpc.team.removeCaptain.useMutation({
+  //   onSuccess: () => {
+  //     utils.players.getAllPlayers.invalidate();
 
-      utils.signups.getAllSignups.invalidate();
-    },
-  });
+  //     utils.signups.getAllSignups.invalidate();
+  //   },
+  // });
 
   // const addTeam = trpc.updateUser.placeUserInTeam.useMutation({
   //   onSuccess: () => {
@@ -49,7 +49,12 @@ const Signups = () => {
       utils.signups.getAllSignups.invalidate();
     },
   });
-
+  const removeCaptain = trpc.team.removeCaptain.useMutation({
+    onSuccess: () => {
+      utils.players.getAllPlayers.invalidate();
+      utils.signups.getAllSignups.invalidate();
+    },
+  });
   // const removeTeam = trpc.players.removePlayerFromTeam.useMutation({
   //   onSuccess: () => {
   //     utils.players.getAllPlayers.invalidate();
@@ -57,12 +62,12 @@ const Signups = () => {
   //   },
   // });
 
-  // const handleRemoveTeam = async (playerId: string) => {
-  //   const id = playerId;
+  const handleRemoveTeam = async (playerId: number) => {
+    const id = playerId;
 
-  //   removeTeam.mutate({ id });
-  //   removeCaptain.mutate({ captainId: id });
-  // };
+    removeFromTeam.mutate({ id: playerId });
+    removeCaptain.mutate({ captainId: id });
+  };
 
   return (
     <div className='mt-10 flex w-full flex-col  gap-8'>
@@ -197,7 +202,7 @@ const Signups = () => {
                 </button>
                 <button
                   className='rounded-lg bg-[#353535] p-4 text-center text-white'
-                  onClick={() => removeFromTeam.mutate({ id: signup.id })}
+                  onClick={() => handleRemoveTeam(signup.id)}
                 >
                   Remove from team
                 </button>

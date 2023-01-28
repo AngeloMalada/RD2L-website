@@ -11,7 +11,7 @@ export default async function handler(req: any, res: any) {
   const presenceData = {
     user_id: randomString,
     user_info: {
-      username: '@' + username,
+      username: username,
     },
   };
 

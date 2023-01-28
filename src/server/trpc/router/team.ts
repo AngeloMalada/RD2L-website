@@ -18,6 +18,7 @@ export const teamRouter = router({
           divisionId: input.division,
           name: input.name,
           captainId: input.captain,
+          drafterId: input.captain,
         },
       });
 
