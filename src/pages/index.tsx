@@ -65,11 +65,11 @@ const Home: NextPage = () => {
       <button onClick={handleUserUpdate}>Update user</button>
       <button onClick={handleCreateTeam}>Create team</button>
       <div>
-        {divisions?.map((division) => {
+        {divisions?.map((division: any) => {
           return (
             <div key={division.id}>
               <h1>{division.name}</h1>
-              {division.teams.map((team) => {
+              {division.teams.map((team: any) => {
                 return (
                   <div key={team.id}>
                     <h2>{team.name}</h2>
