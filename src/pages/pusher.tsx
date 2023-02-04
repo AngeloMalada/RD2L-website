@@ -75,18 +75,19 @@ const WebSocketTest = () => {
   return (
     <div className='flex flex-col items-center gap-10'>
       <h1>Hello {myName}</h1>
-      <h1>Members online</h1>
-
-      {teams?.map((drafter) => {
-        return (
-          <div key={drafter.id}>
-            <h1>{drafter.coins}</h1>
-          </div>
-        );
-      })}
-
+      <span>Drafters</span>
+      <div className='flex flex-row gap-2'>
+        {teams?.map((drafter) => {
+          return (
+            <div key={drafter.id} className=''>
+              <h1>{drafter.drafter?.user.name}</h1>
+            </div>
+          );
+        })}
+      </div>
+      <span>Online</span>
       {members != null && (
-        <div className='flex flex-row gap-4'>
+        <div className='flex flex-row gap-4 '>
           {Object.values(members).map((member: any) => {
             return (
               <div key={member.username}>
@@ -96,9 +97,16 @@ const WebSocketTest = () => {
           })}
         </div>
       )}
-
+      index
       {index != null && <h1>{index === 0 ? 1 : index + 1}</h1>}
-
+      <span>turn to pick</span>
+      {/* {teams[index] !== undefined  && teams !== undefined && index !== null ? teams[index].drafter?.user.name : 'loading'} */}
+      {/* if teams and index are not null or undefiend show team drafter[index] */}
+      {teams !== undefined && index !== null ? (
+        teams[index]?.drafter?.user.name
+      ) : (
+        <h1>loading</h1>
+      )}
       <button
         className='bg-red-800 p-4 '
         onClick={() => {
